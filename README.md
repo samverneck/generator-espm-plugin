@@ -1,88 +1,41 @@
 > [Yeoman](http://yeoman.io) generator
 
-Yeoman generator for creating ES6 javascript libraries with [JSPM](http://jspm.io/).
-Generated directory is configured to work with testing stack: [karma-jspm](https://github.com/Workiva/karma-jspm), [Mocha](http://mochajs.org/), [Chai](http://chaijs.com/), [Sinon](http://sinonjs.org/), [Travis](https://travis-ci.org/), [Sauce Labs](https://saucelabs.com/)
+Yeoman generator para gerar plugins para o projeto [ES na palma da mão](https://github.com/prodest/es-na-palma-da-mao) usando ES6 e [JSPM](http://jspm.io/).
 
-##Instalation
 
-###Installing generator
+##Instalação
+
+###Instalando o generator
 
 ```bash
 npm install -g yo
-npm install -g generator-jspm-lib
+npm install -g generator-espm-plugin
 ```
 
-###Scaffolding library
+###Gerando um plugin
 
 ```bash
-mkdir mylib & cd mylib
-yo jspm-lib
+mkdir meuPlugin & cd meuPlugin
+yo espm-plugin
 ```
 
-Generator will ask you for your GitHub username which will be used for jspm configuration.
+O **generator** perguntará o nome seu nome de usuário do GitHub, o qual será usado para configurar o JSPM.
 
-###Set GitHub authentification to avoid GitHub rate limit:
+###Configurando autenticação no registro do GitHub para evitar [GitHub rate limit](https://developer.github.com/changes/2012-10-14-rate-limit-changes/):
 ```bash
 jspm registry config github
 ```
 
-###Setup Travis with Github and Sauce Labs
+##Workflow em desenvolvimento
 
- 1. We assume you have registered [GitHub](https://github.com/join), [NPM](https://www.npmjs.com/signup), [Travis](https://travis-ci.org) and [Sauce Labs](https://saucelabs.com/opensauce) accounts
-
- 2. Install [travis cli](https://github.com/travis-ci/travis.rb#env) by:
-  ```bash
-  gem install travis
-  ```
-
- 3. Enable you new lib repo for travis build by running comman:
-  ```bash
-  travis enable
-  ```
-
- 4. Add travis [environment variables](http://blog.travis-ci.com/2014-08-22-environment-variables/) by command line:
-  ```bash
-  travis env set SAUCE_USERNAME my_sauce_user
-  travis env set SAUCE_ACCESS_KEY my_sauce_key
-  ```
-
- 5. Set GitHub authentification env variable to avoid GitHub rate limit in travis build:
-  ```bash
-  travis env set JSPM_AUTH "$(node -pe 'JSON.parse(process.argv[1]).registries.github.auth' "$(cat ~/.jspm/config)")"
-  ```
-
- 6. Enable NPM deployment from travis build
-  ```bash
-  travis setup npm
-  ```
-  It is recommended by jspm to release your libraries to npm endpoint.
-  For more details see travis [documentation](http://docs.travis-ci.com/user/deployment/npm/).
-
-##Development workflow
-
-###JSPM linking (with watching)
+###JSPM linking (com **watching**)
 
 ```bash
 gulp link
 ```
 
-###Depoly new release to NPM
+###Deploy de uma nova versão para o Github.
 
 ```bash
-gulp deploy-master
+gulp deploy
 ```
-
-###Testing
-
-```bash
-karma start
-```
-
-##Using your library
-In any jspm project you can install your library with this command:
-
-```bash
-jspm install npm:REPO
-```
-
-or make a pull request to [JSPM Reigistry](https://github.com/jspm/registry)
