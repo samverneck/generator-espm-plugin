@@ -52,7 +52,7 @@ Este comando irá criar um *tagged commit* seguido de *push* para o repositório
 MIT © [PRODEST]()
 [npm-image]: https://badge.fury.io/js/generator-espm-plugin.svg
 [npm-url]: https://badge.fury.io/js/generator-espm-plugin
-[travis-image]: https://travis-ci.org/prodest/generator-espm-plugin.svg?branch=master
+[travis-image]: https://travis-ci.org/prodest/generator-espm-plugin.svg
 [travis-url]: https://travis-ci.org/prodest/generator-espm-plugin
 [daviddm-image]: https://david-dm.org/prodest/generator-espm-plugin.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/prodest/generator-espm-plugin
