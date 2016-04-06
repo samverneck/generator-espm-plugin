@@ -10,9 +10,9 @@
     "node": true,
     "mocha": true
   },
-  //"rules": {
-  //   "linebreak-style": [2, "unix"]
-  //},
+  "rules": {
+     "linebreak-style": [1]
+  },
   "globals": {
     "expect": true
   }
