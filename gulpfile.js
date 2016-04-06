@@ -14,7 +14,7 @@ var runSequence = require( 'gulp-run-sequence' );
 gulp.task( 'lint', function() {
     return gulp.src( './**/*.js' )
                .pipe( excludeGitignore() )
-               .pipe( eslint( { fix: true } ) )
+               .pipe( eslint( { fix: false } ) )
                .pipe( eslint.format() )
                .pipe( gulp.dest( './' ) )
                .pipe( eslint.failAfterError() );
