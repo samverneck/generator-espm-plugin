@@ -30,7 +30,6 @@
     "yosay": "^1.1.1"
   },
   "devDependencies": {
-    "del": "^2.2.0",
     "eslint-config-idiomatic": "^2.0.0",
     "eslint-config-prodest": "^1.0.12",
     "gulp": "^3.9.1",
@@ -43,7 +42,6 @@
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
     "gulp-run-sequence": "^0.3.2",
-    "isparta": "^4.0.0",
     "yeoman-assert": "^2.1.2",
     "yeoman-test": "^1.1.0"
   }
