@@ -8,7 +8,7 @@
 
 ## Instalação
 
-Primeiro, instale [Yeoman](http://yeoman.io) e generator-espm-plugin usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) instalado).
+Primeiro, instale [Yeoman](http://yeoman.io) e `generator-espm-plugin` usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) instalado).
 
 ```bash
 npm install -g yo
@@ -16,7 +16,7 @@ npm install -g generator-espm-plugin
 ```
 
 ###Gerando um plugin
-
+Crie um diretório e execute `generator-espm-plugin` dentro dele:
 ```bash
 mkdir meuPlugin & cd meuPlugin
 yo espm-plugin
