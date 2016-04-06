@@ -38,7 +38,7 @@ gulp link
 ```
 
 ###Deploy de uma nova versão para o Github.
-
+ 
 ```bash
 gulp deploy
 ```
@@ -50,9 +50,8 @@ Este comando irá criar um *tagged commit* seguido de *push* para o repositório
 ## License
 
 MIT © [PRODEST]()
-
-[npm-image]: https://badge.fury.io/js/generator-jspm.svg
-[npm-url]: https://npmjs.org/package/generator-jspm
+[npm-image]: https://badge.fury.io/js/generator-espm-plugin.svg
+[npm-url]: https://badge.fury.io/js/generator-espm-plugin
 [travis-image]: https://travis-ci.org/prodest/generator-espm-plugin.svg?branch=master
 [travis-url]: https://travis-ci.org/prodest/generator-espm-plugin
 [daviddm-image]: https://david-dm.org/prodest/generator-espm-plugin.svg?theme=shields.io
