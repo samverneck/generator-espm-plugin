@@ -1,6 +1,6 @@
 {
   "name": "generator-espm-plugin",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Yeoman generator para gerar plugins para o projeto 'ES na palma da mão'",
   "license": "MIT",
   "repository": "prodest/generator-espm-plugin",
