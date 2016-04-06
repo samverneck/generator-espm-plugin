@@ -13,7 +13,7 @@ var coveralls = require( 'gulp-coveralls' );
 gulp.task( 'lint', function() {
     return gulp.src( './**/*.js' )
                .pipe( excludeGitignore() )
-               .pipe( eslint( { fix: true } ) )
+               .pipe( eslint() )
                .pipe( eslint.format() )
                .pipe( eslint.failAfterError() );
                //.pipe( gulp.dest( './' ) );
