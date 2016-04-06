@@ -1,36 +1,49 @@
 {
-  "name": "generator-jspm-lib",
-  "version": "0.1.23",
-  "description": "Yeoman generator",
+  "name": "generator-espm-plugin",
+  "version": "1.0.0",
+  "description": "Yeoman generator para gerar plugins para o projeto 'ES na palma da mão'",
   "license": "MIT",
-  "main": "app/index.js",
-  "repository": "djindjic/generator-jspm-lib",
+  "repository": "prodest/generator-espm-plugin",
   "author": {
-    "name": "Aleksandar Djindjic",
-    "email": "djindjic@gmail.com",
-    "url": "https://github.com/djindjic"
+    "name": "Daniel Hoisel",
+    "email": "daniel.hoisel@prodest.es.gov.br",
+    "url": "https://github.com/prodest"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha"
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
   },
   "files": [
-    "app"
+    "generators"
   ],
+  "main": "generators/app/index.js",
   "keywords": [
     "yeoman-generator"
   ],
-  "dependencies": {
-    "yeoman-generator": "^0.18.0",
-    "chalk": "^0.5.0",
-    "yosay": "^0.3.0"
+  "dependencies": { 
+    "chalk": "^1.1.3",
+    "underscore.string": "^3.3.4",
+    "yeoman-generator": "^0.22.5",
+    "yosay": "^1.1.1"
   },
   "devDependencies": {
-    "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0"
+    "del": "^2.2.0",
+    "eslint-config-idiomatic": "^2.0.0",
+    "eslint-config-prodest": "^1.0.12",
+    "gulp": "^3.9.1",
+    "gulp-coveralls": "^0.1.0",
+    "gulp-eslint": "^2.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-mocha": "^2.2.0",
+    "gulp-nsp": "^2.1.0",
+    "gulp-plumber": "^1.0.0",
+    "isparta": "^4.0.0",
+    "yeoman-assert": "^2.1.2",
+    "yeoman-test": "^1.1.0"
   }
 }

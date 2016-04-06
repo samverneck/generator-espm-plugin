@@ -1,11 +1,13 @@
-> [Yeoman](http://yeoman.io) generator
+# generator-espm-plugin 
+[![NPM version][npm-image]][npm-url] 
+[![Build Status][travis-image]][travis-url] 
+[![Dependency Status][daviddm-image]][daviddm-url]
+ [![Coverage percentage][coveralls-image]][coveralls-url]
+> Yeoman generator para gerar plugins para o projeto [ES na palma da mão](https://github.com/prodest/es-na-palma-da-mao) usando ES6 e [JSPM](http://jspm.io/).
 
-Yeoman generator para gerar plugins para o projeto [ES na palma da mão](https://github.com/prodest/es-na-palma-da-mao) usando ES6 e [JSPM](http://jspm.io/).
+## Instalação
 
-
-##Instalação
-
-###Instalando o generator
+Primeiro, instale [Yeoman](http://yeoman.io) e generator-espm-plugin usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) instalado).
 
 ```bash
 npm install -g yo
@@ -39,3 +41,20 @@ gulp link
 ```bash
 gulp deploy
 ```
+Este comando irá criar um *tagged commit* seguido de *push* para o repositório do plugin no Github.
+
+
+> Leia mais sobre Yeoman [sobre Yeoman](http://yeoman.io/).
+
+## License
+
+MIT © [PRODEST]()
+
+[npm-image]: https://badge.fury.io/js/generator-jspm.svg
+[npm-url]: https://npmjs.org/package/generator-jspm
+[travis-image]: https://travis-ci.org/prodest/generator-espm-plugin.svg?branch=master
+[travis-url]: https://travis-ci.org/prodest/generator-espm-plugin
+[daviddm-image]: https://david-dm.org/prodest/generator-espm-plugin.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/prodest/generator-espm-plugin
+[coveralls-image]: https://coveralls.io/repos/prodest/generator-espm-plugin/badge.svg
+[coveralls-url]: https://coveralls.io/r/prodest/generator-espm-plugin
