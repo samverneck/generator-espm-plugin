@@ -1,4 +1,4 @@
-# generator-espm-plugin 
+# generator-espm-plugin
 [![NPM version][npm-image]][npm-url] 
 [![Build Status][travis-image]][travis-url] 
 [![Dependency Status][daviddm-image]][daviddm-url]
@@ -51,6 +51,7 @@ Digite seu nome de usuário do GitHub (obrigatório), o qual será usado para co
 
 Responda sim (Y ou y) para iniciar um servidor local, abrir uma janela do browser e exibir o recém-criado plugin imediatamente após a instalação.
 
+> Repare que `generator-espm-plugin` *emula* uma versão de desenvolvimento *lightweight* da aplicação **ES na palma da mão** e executa o plugin no contexto dessa aplicação.
 
 **Pergunta:** *Qual o "module system" usado pelo plugin?*
 
@@ -58,10 +59,6 @@ Selecione **ES6** para usar a sintaxe e o sistema de módulos do [ECMAScript 201
 **CommonJS** para usar o sistema de módulos [CommonJS](https://pt.wikipedia.org/wiki/CommonJS), como usado tradicionalmente usado no módulos do node.js.
 Indepentemente do sistema de módulos escolhido, o conjunto *jspm + systemjs* vai fazer a requisição assíncrona dos seus scripts dentro
 do seu plugin à medida que você os requisitar, seja através de `require(xxxx)` (CommonJS) ou `import xxx from 'XXXXX'` (ES6).
-
-> Repare que `generator-espm-plugin` *emula* uma versão de desenvolvimento *lightweight* da aplicação **ES na palma da mão** e executa o plugin no contexto dessa aplicação.
-
-
 
 ###4. Instale *packages* a partir dos seguintes registros: jspm, GitHub ou npm:
 Exemplos:
@@ -100,7 +97,7 @@ Este comando irá criar um *tagged commit* seguido de *push* para o repositório
 
 ## License
 
-MIT © [PRODEST]()
+MIT © [PRODEST](http://prodest.es.gov.br/)
 [npm-image]: https://badge.fury.io/js/generator-espm-plugin.svg
 [npm-url]: https://badge.fury.io/js/generator-espm-plugin
 [travis-image]: https://travis-ci.org/prodest/generator-espm-plugin.svg
