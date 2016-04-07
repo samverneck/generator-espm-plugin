@@ -4,32 +4,71 @@
 [![Dependency Status][daviddm-image]][daviddm-url]
 [![Coverage percentage][coveralls-image]][coveralls-url]
 
-> Yeoman generator para gerar plugins para o projeto [ES na palma da mão](https://github.com/prodest/es-na-palma-da-mao) usando ES6 e [JSPM](http://jspm.io/).
+> Yeoman generator para gerar plugins para o projeto [ES na palma da mão](https://github.com/prodest/es-na-palma-da-mao) usando [jspm](http://jspm.io/).
 
-## Instalação
 
-Primeiro, instale [Yeoman](http://yeoman.io), `generator-espm-plugin` e então [JSPM Server](https://github.com/geelen/jspm-server) usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) instalados).
+##1. Instale `generator-espm-plugin` e dependências:
+
+Primeiro, instale [yeoman](http://yeoman.io), [jspm CLI](http://jspm.io/), [jspm Server](https://github.com/geelen/jspm-server) 
+ e então `generator-espm-plugin` usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) instalados).
 ```bash
-npm i -g yo generator-espm-plugin jspm-server
+npm i -g yo jspm jspm-server generator-espm-plugin
 ```
 
-[JSPM Server](https://github.com/geelen/jspm-server) é um servidor local que será usado para *rodar* seu plugin em desenvolvimento.
-
-###Gerando um plugin
-Crie um diretório e execute `generator-espm-plugin` dentro dele:
+###2. Crie um novo diretório para o plugin:
 ```bash
-mkdir meuPlugin & cd meuPlugin
-yo espm-plugin
+mkdir meu-plugin & cd meu-plugin
+```
+Opcionalmente *bloqueie* a versão do jspm para o projeto:
+
+```
+cd meu-plugin
+npm install jspm --save-dev
+```
+> É aconselhável instalar jspm localmente para *bloquear* a versão do jspm para o plugin.
+Essa medida garante que eventuais atualizações ao jspm global não interfiram no comportamento do plugin. 
+Use `jspm -v` para ver a versão local instalada.
+
+
+###3. Gere um novo plugin:
+Execute `generator-espm-plugin` dentro do diretório criado, opcionalmente informando o nome do plugin:
+```bash
+yo espm-plugin [nome do plugin]
 ```
 
-O **generator** perguntará o nome seu nome de usuário do GitHub, o qual será usado para configurar o JSPM.
+Se o nome do plugin **não** for informado, o nome do plugin será o nome do diretório onde o *generator* está sendo executado.
 
 
-###Configurando autenticação no registro do GitHub para evitar [GitHub rate limit](https://developer.github.com/changes/2012-10-14-rate-limit-changes/):
-```bash
-jspm registry config github
+###4. Responda às perguntas do *generator*
+O *generator* fará as seguintes perguntas: 
+
+**Pergunta:** *Por favor digite seu username do Github:*
+
+Digite seu nome de usuário do GitHub (obrigatório), o qual será usado para configurar o jspm.
+
+
+**Pergunta:** *Deseja executar o plugin imediatamente após a instalação? (Yn)*
+
+Responda sim (Y ou y) para iniciar um servidor local, abrir uma janela do browser e exibir o recém-criado plugin imediatamente após a instalação.
+
+> Repare que `generator-espm-plugin` *emula* uma versão de desenvolvimento *lightweight* da aplicação **ES na palma da mão** e executa o plugin no contexto dessa aplicação.
+
+
+
+###4. Instale *packages* a partir dos seguintes registros: jspm, GitHub ou npm:
+```
+jspm install jquery
+jspm install myname=npm:underscore
+jspm install github:components/jquery
+jspm install npm:lodash-node
 ```
 
+##Tooling
+Abaixo seguem breves descrições das ferramentas utilizadas no projeto:
+
+- [yeoman](http://yeoman.io) é uma ferramenta de *scaffolding* de aplicações *web* modernas.
+- [jspm CLI](http://jspm.io/) é um *package manager* para o browser.
+- [jspm Server](https://github.com/geelen/jspm-server) é um servidor local que será usado para *rodar* seu plugin em desenvolvimento.
 
 
 ##Workflow em desenvolvimento

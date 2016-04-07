@@ -80,9 +80,10 @@ module.exports = generators.Base.extend( {
                   this.templatePath( 'lib/espmEmulator/espm.controller.js' ),
                   this.destinationPath( 'lib/espmEmulator/espm.controller.js' ) );
 
-            this.fs.copy(
-                 this.templatePath( 'lib/espmEmulator/index.html' ),
-                 this.destinationPath( 'lib/espmEmulator/index.html' ) );
+            this.fs.copyTpl(
+                 this.templatePath( 'lib/espmEmulator/_index.html' ),
+                 this.destinationPath( 'lib/espmEmulator/index.html' ),
+                 context );
         },
 
         pluginSrc: function() {

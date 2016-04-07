@@ -1,8 +1,8 @@
-import template from './<%= pluginName %>.tpl.html!text';
+﻿import template from './<%= pluginName %>.tpl.html!text';
 
 function <%= pluginName %>Routes( $stateProvider ) {
     $stateProvider
-        .state( 'espm.<%= pluginName %>', {
+        .state( 'espm.<%= pluginName %>-principal', {
             url: '<%= pluginName %>',
             data: { title: '<%= capitalPluginName %>' },
             views: {

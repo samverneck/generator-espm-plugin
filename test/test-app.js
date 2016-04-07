@@ -94,7 +94,7 @@ describe( 'espm-plugin', function() {
 
             //img
             assert.file( [
-                'lib/espmEmulator/img/img.jpg',
+                'lib/espmEmulator/img/user.png',
                 'lib/espmEmulator/img/diamond-effect.png',
                 'lib/espmEmulator/img/brasao-governo-horizontal.png'
             ] );

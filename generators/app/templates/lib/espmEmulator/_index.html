@@ -18,9 +18,15 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     <base href="/" />
+
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
 </head>
 
-<body class="nav-md" ng-controller="espmController as vm">
+<body class="nav-md" ng-controller="espmController as vm" ng-cloak>
     <div class="container body">
         <div class="main_container">
             <!-- /sidebar -->
@@ -40,7 +46,7 @@
                         <div class="clearfix "></div>
                         <div class="profile clearfix">
                             <div class="profile_pic ">
-                                <img src="lib/espmEmulator/img/img.jpg" alt="" class="img-circle profile_img">
+                                <img src="lib/espmEmulator/img/user.png" alt="" class="img-circle profile_img">
                             </div>
                             <div class="profile_info">
                                 <span>Bem-vindo,</span>
@@ -64,7 +70,7 @@
                                     <!--style="display: none"-->
                                     <ul class="nav child_menu">
                                         <li>
-                                            <a ui-sref="app.dashboard">DashBoard</a>
+                                            <a ui-sref="espm.<%= pluginName %>-principal"><%= pluginName %></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -101,7 +107,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="lib/espmEmulator/img/img.jpg" alt="">{{vm.userName}}
+                                    <img src="lib/espmEmulator/img/user.png" alt="">{{vm.userName}}
                                     <span class="fa fa-angle-down"></span>
                                 </a>
                             </li>
@@ -140,5 +146,4 @@
         System['import']( 'lib/espmEmulator/espm' )['catch']( console.error.bind( console ) );
     </script>
 </body>
-
 </html>
