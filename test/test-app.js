@@ -74,7 +74,7 @@ describe( 'espm-plugin', function() {
             ] );
         } );
 
-        it( 'generates  espm (ES na palma da mão) emulator files', function () {
+        it( 'generates  espm (ES na palma da mï¿½o) emulator files', function() {
 
             // js
             assert.file( [

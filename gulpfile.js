@@ -12,7 +12,7 @@ var coveralls = require( 'gulp-coveralls' );
 var runSequence = require( 'gulp-run-sequence' );
 
 gulp.task( 'lint', function() {
-    return gulp.src( './**/*.js' )
+    return gulp.src( [ './**/*.js', '!./**/_*.js' ] )
                .pipe( excludeGitignore() )
                .pipe( eslint( { fix: true } ) )
                .pipe( eslint.format() )

@@ -53,7 +53,7 @@ module.exports = generators.Base.extend( {
 
     writing: {
 
-        espmEmulator: function(){
+        espmEmulator: function() {
             var context = {
                 pluginName: this.pluginName,
                 capitalPluginName: _.capitalize( this.pluginName )
@@ -61,15 +61,15 @@ module.exports = generators.Base.extend( {
 
             this.fs.copy(
                   this.templatePath( 'lib/espmEmulator/css' ),
-                  this.destinationPath( 'lib/espmEmulator/css' ));
+                  this.destinationPath( 'lib/espmEmulator/css' ) );
 
             this.fs.copy(
                   this.templatePath( 'lib/espmEmulator/img' ),
-                  this.destinationPath( 'lib/espmEmulator/img' ));
+                  this.destinationPath( 'lib/espmEmulator/img' ) );
 
             this.fs.copy(
                   this.templatePath( 'lib/espmEmulator/espm.js' ),
-                  this.destinationPath( 'lib/espmEmulator/espm.js' ));
+                  this.destinationPath( 'lib/espmEmulator/espm.js' ) );
 
             this.fs.copyTpl(
                   this.templatePath( 'lib/espmEmulator/espm.routes.js' ),
@@ -92,22 +92,22 @@ module.exports = generators.Base.extend( {
             };
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/index.js' ),
+                this.templatePath( 'lib/plugin/_index.js' ),
                 this.destinationPath( 'lib/plugin/index.js' ),
                 context );
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/plugin.controller.js' ),
+                this.templatePath( 'lib/plugin/_plugin.controller.js' ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.controller.js' ),
                 context );
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/plugin.controller.specs.js' ),
+                this.templatePath( 'lib/plugin/_plugin.controller.specs.js' ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.controller.specs.js' ),
                 context );
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/plugin.routes.js' ),
+                this.templatePath( 'lib/plugin/_plugin.routes.js' ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.routes.js' ),
                 context );
 

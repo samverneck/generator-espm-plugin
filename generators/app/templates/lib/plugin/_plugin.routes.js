@@ -1,4 +1,4 @@
-﻿import template from './<%= pluginName %>.tpl.html!text';
+import template from './<%= pluginName %>.tpl.html!text';
 
 function <%= pluginName %>Routes( $stateProvider ) {
     $stateProvider
