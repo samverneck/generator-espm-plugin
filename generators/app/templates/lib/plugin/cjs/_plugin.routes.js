@@ -19,5 +19,3 @@ module.exports = [
     '$stateProvider',
     <%= pluginName %>Routes
 ];
-
-se
