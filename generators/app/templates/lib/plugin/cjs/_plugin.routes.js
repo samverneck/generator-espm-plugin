@@ -8,7 +8,7 @@ function <%= pluginName %>Routes($stateProvider) {
             data: { title: '<%= capitalPluginName %>' },
             views: {
                 content: {
-                    controller: 'secomController as vm',
+                    controller: '<%= pluginName %>Controller as vm',
                     template: template
                 }
             }
@@ -17,6 +17,7 @@ function <%= pluginName %>Routes($stateProvider) {
 
 module.exports = [
     '$stateProvider',
-    secomRoutes
+    <%= pluginName %>Routes
 ];
 
+se
