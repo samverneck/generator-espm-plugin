@@ -8,12 +8,12 @@
 
 ## Instalação
 
-Primeiro, instale [Yeoman](http://yeoman.io) e `generator-espm-plugin` usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) instalado).
-
+Primeiro, instale [Yeoman](http://yeoman.io), `generator-espm-plugin` e então [JSPM Server](https://github.com/geelen/jspm-server) usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) instalados).
 ```bash
-npm install -g yo
-npm install -g generator-espm-plugin
+npm i -g yo generator-espm-plugin jspm-server
 ```
+
+[JSPM Server](https://github.com/geelen/jspm-server) é um servidor local que será usado para *rodar* seu plugin em desenvolvimento.
 
 ###Gerando um plugin
 Crie um diretório e execute `generator-espm-plugin` dentro dele:
@@ -24,10 +24,13 @@ yo espm-plugin
 
 O **generator** perguntará o nome seu nome de usuário do GitHub, o qual será usado para configurar o JSPM.
 
+
 ###Configurando autenticação no registro do GitHub para evitar [GitHub rate limit](https://developer.github.com/changes/2012-10-14-rate-limit-changes/):
 ```bash
 jspm registry config github
 ```
+
+
 
 ##Workflow em desenvolvimento
 
