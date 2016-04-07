@@ -8,7 +8,7 @@
     "serve": "jspm-server --open=lib/espmEmulator/index.html"
   },
   "jspm": {
-    "format": "es6",
+    "format": "<%= format %>",
     "directories": { },
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.5.0",

@@ -51,6 +51,14 @@ Digite seu nome de usuário do GitHub (obrigatório), o qual será usado para co
 
 Responda sim (Y ou y) para iniciar um servidor local, abrir uma janela do browser e exibir o recém-criado plugin imediatamente após a instalação.
 
+
+**Pergunta:** *Qual o "module system" usado pelo plugin?*
+
+Selecione **ES6** para usar a sintaxe e o sistema de módulos do [ECMAScript 2015](https://babeljs.io/docs/learn-es2015/) ou selecione
+**CommonJS** para usar o sistema de módulos [CommonJS](https://pt.wikipedia.org/wiki/CommonJS), como usado tradicionalmente usado no módulos do node.js.
+Indepentemente do sistema de módulos escolhido, o conjunto *jspm + systemjs* vai fazer a requisição assíncrona dos seus scripts dentro
+do seu plugin à medida que você os requisitar, seja através de `require(xxxx)` (CommonJS) ou `import xxx from 'XXXXX'` (ES6).
+
 > Repare que `generator-espm-plugin` *emula* uma versão de desenvolvimento *lightweight* da aplicação **ES na palma da mão** e executa o plugin no contexto dessa aplicação.
 
 

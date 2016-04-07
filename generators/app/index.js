@@ -9,29 +9,30 @@ var _ = require( 'underscore.string' );
 module.exports = generators.Base.extend( {
 
     // The name `constructor` is important here
-    constructor: function() {
+    constructor: function () {
         // Calling the super constructor is important so our generator is correctly set up
         generators.Base.apply( this, arguments );
 
         this.option( 'skip-install' );  // This method adds support for a `--skip-install` flag
     },
 
-    initializing: function() {
+    initializing: function () {
         this.pkg = require( '../../package.json' );
 
         this.argument( 'pluginName', { type: String, required: false } );
         this.pluginName = this.pluginName || path.basename( process.cwd() );
         this.pluginName = _.camelize( _.slugify( _.humanize( this.pluginName ) ) );
+       
     },
 
-    prompting: function() {
+    prompting: function () {
         var done = this.async();
         var prompts;
 
         // Have Yeoman greet the user.
         this.log( yosay( 'Bem-vindo ao gerador de ' + chalk.red( 'plugins do ES na palma da mão!' ) ) );
 
-        prompts = [ {
+        prompts = [{
             type: 'input',
             name: 'githubUserName',
             message: 'Por favor digite seu username do Github:',
@@ -41,19 +42,32 @@ module.exports = generators.Base.extend( {
             type: 'input',
             name: 'autoExec',
             message: 'Deseja executar o plugin imediatamente após a instalação? (Yn)'
-        } ];
+        },
+        {
+            type: 'list',
+            name: 'format',
+            message: 'Qual o "module system" usado pelo plugin?',
+            choices: [{
+                name: 'ES6',
+                value: 'es6'
+            }, {
+                name: 'CommonJS',
+                value: 'cjs'
+            }],
+            default: 0
+        }];
 
-        this.prompt( prompts, function( answers ) {
+        this.prompt( prompts, function ( answers ) {
             this.githubUserName = answers.githubUserName;
             this.autoExec = !answers.autoExec || ( answers.autoExec === 'Y' || answers.autoExec === 'y' );
-
+            this.format = answers.format;
             done();
         }.bind( this ) );
     },
 
     writing: {
 
-        espmEmulator: function() {
+        espmEmulator: function () {
             var context = {
                 pluginName: this.pluginName,
                 capitalPluginName: _.capitalize( this.pluginName )
@@ -86,29 +100,38 @@ module.exports = generators.Base.extend( {
                  context );
         },
 
-        pluginSrc: function() {
+
+
+        pluginSrc: function () {
+
             var context = {
                 pluginName: this.pluginName,
-                capitalPluginName: _.capitalize( this.pluginName )
+                capitalPluginName: _.capitalize( this.pluginName ),
+                format: this.format
             };
+            
+            // resolve o caminho para o path do formato escollhido para o plugin
+            var _resolve = function ( file ) {
+                return 'lib/plugin/' + this.format + '/' + file;
+            }.bind( this );
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/_index.js' ),
+                this.templatePath( _resolve( '_index.js' ) ),
                 this.destinationPath( 'lib/plugin/index.js' ),
                 context );
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/_plugin.controller.js' ),
+                this.templatePath( _resolve( '_plugin.controller.js' ) ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.controller.js' ),
                 context );
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/_plugin.controller.specs.js' ),
+                this.templatePath( _resolve( '_plugin.controller.specs.js' ) ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.controller.specs.js' ),
                 context );
 
             this.fs.copyTpl(
-                this.templatePath( 'lib/plugin/_plugin.routes.js' ),
+                this.templatePath( _resolve( '_plugin.routes.js' ) ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.routes.js' ),
                 context );
 
@@ -122,19 +145,19 @@ module.exports = generators.Base.extend( {
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.css' ) );
         },
 
-        git: function() {
+        git: function () {
             this.fs.copy(
                 this.templatePath( 'gitignore' ),
                 this.destinationPath( '.gitignore' ) );
         },
 
-        eslint: function() {
+        eslint: function () {
             this.fs.copy(
                 this.templatePath( 'eslintrc.json' ),
                 this.destinationPath( '.eslintrc.json' ) );
         },
 
-        systemjs: function() {
+        systemjs: function () {
             this.fs.copy(
                 this.templatePath( 'config.js' ),
                 this.destinationPath( 'config.js' ) );
@@ -145,13 +168,13 @@ module.exports = generators.Base.extend( {
               this.destinationPath( 'system.yuml.js' ) );
         },
 
-        tests: function() {
+        tests: function () {
             this.fs.copy(
                 this.templatePath( 'test' ),
                 this.destinationPath( 'test' ) );
         },
 
-        gulp: function() {
+        gulp: function () {
             this.fs.copyTpl(
                 this.templatePath( 'gulpfile.js' ),
                 this.destinationPath( 'gulpfile.js' ),
@@ -161,7 +184,7 @@ module.exports = generators.Base.extend( {
                 } );
         },
 
-        readme: function() {
+        readme: function () {
             this.fs.copyTpl(
                 this.templatePath( 'README.md' ),
                 this.destinationPath( 'README.md' ),
@@ -171,36 +194,37 @@ module.exports = generators.Base.extend( {
                 } );
         },
 
-        packageJson: function() {
+        packageJson: function () {
             this.fs.copyTpl(
                 this.templatePath( 'package.json' ),
                 this.destinationPath( 'package.json' ),
                 {
                     repo: this.pluginName,
-                    user: this.githubUserName
+                    user: this.githubUserName,
+                    format: this.format
                 } );
         }
     },
 
-    install: function() {
-        if ( !this.options[ 'skip-install' ] ) {
+    install: function () {
+        if ( !this.options['skip-install'] ) {
             this.npmInstall();
         }
 
     },
 
-    end: function() {
+    end: function () {
         var install;
 
-        if ( !this.options[ 'skip-install' ] ) {
-            install = this.spawnCommand( 'jspm', [ 'install', '-y' ] );
+        if ( !this.options['skip-install'] ) {
+            install = this.spawnCommand( 'jspm', ['install', '-y'] );
 
-            install.on( 'close', function( code ) {
+            install.on( 'close', function ( code ) {
                 if ( code === 0 ) {
                     this.log( 'jspm install terminou com sucesso!' );
 
                     if ( this.autoExec ) {
-                        this.spawnCommand( 'npm', [ 'run', 'serve' ] );
+                        this.spawnCommand( 'npm', ['run', 'serve'] );
                     }
                 }
             }.bind( this ) );
