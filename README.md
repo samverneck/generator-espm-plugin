@@ -56,6 +56,7 @@ Responda sim (Y ou y) para iniciar um servidor local, abrir uma janela do browse
 
 
 ###4. Instale *packages* a partir dos seguintes registros: jspm, GitHub ou npm:
+Exemplos:
 ```
 jspm install jquery
 jspm install myname=npm:underscore
