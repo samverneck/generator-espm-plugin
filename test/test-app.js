@@ -26,9 +26,9 @@ describe( 'espm-plugin', function() {
                 'README.md',
                 'gulpfile.js',
                 'config.js',
-                'index.html',
                 '.eslintrc.json',
-                '.gitignore'
+                '.gitignore',
+                'system.yuml.js'
             ] );
         } );
 
@@ -65,12 +65,38 @@ describe( 'espm-plugin', function() {
 
         it( 'generates plugin src files with plugin name', function() {
             assert.file( [
-                'lib/src/index.js',
-                'lib/src/' + context.appName + '.controller.js',
-                'lib/src/' + context.appName + '.controller.specs.js',
-                'lib/src/' + context.appName + '.routes.js',
-                'lib/src/' + context.appName + '.tpl.html',
-                'lib/src/' + context.appName + '.css'
+                'lib/plugin/index.js',
+                'lib/plugin/' + context.appName + '.controller.js',
+                'lib/plugin/' + context.appName + '.controller.specs.js',
+                'lib/plugin/' + context.appName + '.routes.js',
+                'lib/plugin/' + context.appName + '.tpl.html',
+                'lib/plugin/' + context.appName + '.css'
+            ] );
+        } );
+
+        it( 'generates  espm (ES na palma da mão) emulator files', function () {
+
+            // js
+            assert.file( [
+                'lib/espmEmulator/espm.js',
+                'lib/espmEmulator/espm.controller.js',
+                'lib/espmEmulator/espm.routes.js',
+                'lib/espmEmulator/index.html'
+            ] );
+
+
+            //css
+            assert.file( [
+                'lib/espmEmulator/css/espm-bootstrap-override.css',
+                'lib/espmEmulator/css/espm.css'
+            ] );
+
+
+            //img
+            assert.file( [
+                'lib/espmEmulator/img/img.jpg',
+                'lib/espmEmulator/img/diamond-effect.png',
+                'lib/espmEmulator/img/brasao-governo-horizontal.png'
             ] );
         } );
     } );

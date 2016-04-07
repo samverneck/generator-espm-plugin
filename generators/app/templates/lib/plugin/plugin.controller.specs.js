@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 describe( '<%= capitalPluginName %>Controller', function() {
     describe( 'quando ativado', function() {

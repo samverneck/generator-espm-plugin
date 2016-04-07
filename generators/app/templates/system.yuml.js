@@ -1,49 +1,51 @@
-﻿System.trace = true;
+System.trace = true;
 
-window.showModuleRelationships = function () {
-    var modules = Object.keys( System.loads )
-        .map( function ( moduleName ) {
-            return System.loads[moduleName];
-        } );
+window.showModuleRelationships = function() {
 
-    function displayName( module ) {
-        return module
-            .replace( System.baseURL, '' );
-    }
-
-    var moduleDefinitions = modules
-        .map( function ( module ) {
-            var name = displayName( module.name );
-            return '[' + name + '|' + module.metadata.format + ']';
-        } );
-
+    var name;
+    var definitions;
+    var dependencies;
+    var modules;
+    var moduleDefinitions;
     var dependencyDefinitions = [];
 
-    modules
-        .filter( function ( module ) {
-            return module.deps.length > 0;
+    modules = Object.keys( System.loads ).map( function( moduleName ) {
+        return System.loads[ moduleName ];
+    } );
+
+    function displayName( module ) {
+        return module.replace( System.baseURL, '' );
+    }
+
+    moduleDefinitions = modules.map( function( module ) {
+        name = displayName( module.name );
+        return '[' + name + '|' + module.metadata.format + ']';
+    } );
+
+
+
+    modules.filter( function( module ) {
+        return module.deps.length > 0;
+    } )
+    .forEach( function( module ) {
+        name = displayName( module.name );
+
+        dependencies = module.deps.map( function( dependency ) {
+            return System.normalizeSync( dependency, module.name, module.address );
         } )
-        .forEach( function ( module ) {
-            var name = displayName( module.name );
-
-            var dependencies = module.deps
-                .map( function ( dependency ) {
-                    return System.normalizeSync( dependency, module.name, module.address );
-                } )
-                .map( displayName )
-                .map( function ( dependencyName ) {
-                    return '[' + name + ']->[' + dependencyName + ']';
-                } );
-
-            dependencyDefinitions = dependencyDefinitions.concat( dependencies );
+        .map( displayName )
+        .map( function( dependencyName ) {
+            return '[' + name + ']->[' + dependencyName + ']';
         } );
 
-    var definitions = moduleDefinitions.concat( dependencyDefinitions );
+        dependencyDefinitions = dependencyDefinitions.concat( dependencies );
+    } );
 
-    definitions = definitions.filter( function ( definition ) {
+    definitions = moduleDefinitions.concat( dependencyDefinitions );
+
+    definitions = definitions.filter( function( definition ) {
         return definition.indexOf( 'jspm_packages' ) === -1;
     } );
 
     window.open( 'http://yuml.me/diagram/plain/class/' + definitions );
-
 };

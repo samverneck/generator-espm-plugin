@@ -1,4 +1,4 @@
-import angular from 'angular';
+﻿import angular from 'angular';
 import 'angular-ui-router';
 import './<%= pluginName %>.css!';
 import <%= capitalPluginName %>Controller from './<%= pluginName %>.controller';
@@ -8,6 +8,6 @@ const dependencies = [
     'ui.router'
 ];
 
-export default angular.module( '<%= pluginName %>-state', dependencies )
+export default angular.module( 'espm-plugin-<%= pluginName %>', dependencies )
                       .controller( '<%= pluginName %>Controller', <%= capitalPluginName %>Controller )
-                      .config( <%= pluginName %>Routes );
+                      .config( <%= pluginName %>Routes ); 
