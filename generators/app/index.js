@@ -29,7 +29,7 @@ module.exports = generators.Base.extend( {
         var prompts;
 
         // Have Yeoman greet the user.
-        this.log( yosay( 'Bem-vindo ao gerador de ' + chalk.red( 'plugins do ES na palma da mão!' ) ) );
+        this.log( yosay( 'Bem-vindo ao gerador de ' + chalk.blue( 'plugins do ES na palma da mão!' ) ) );
 
         prompts = [ {
             type: 'input',
