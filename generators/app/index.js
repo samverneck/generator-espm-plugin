@@ -206,27 +206,30 @@ module.exports = generators.Base.extend( {
     },
 
     install: function() {
-        if ( !this.options[ 'skip-install' ] ) {
-            this.npmInstall();
+        if ( this.options[ 'skip-install' ] ) {
+            return;
         }
 
+        this.npmInstall();
     },
 
     end: function() {
         var install;
 
-        if ( !this.options[ 'skip-install' ] ) {
-            install = this.spawnCommand( 'jspm', [ 'install', '-y' ] );
-
-            install.on( 'close', function( code ) {
-                if ( code === 0 ) {
-                    this.log( 'jspm install terminou com sucesso!' );
-
-                    if ( this.autoExec ) {
-                        this.spawnCommand( 'npm', [ 'run', 'serve' ] );
-                    }
-                }
-            }.bind( this ) );
+        if ( this.options[ 'skip-install' ] ) {
+            return;
         }
+
+        install = this.spawnCommand( 'jspm', [ 'install', '-y' ] );
+
+        install.on( 'close', function( code ) {
+            if ( code === 0 ) {
+                this.log( 'jspm install terminou com sucesso!' );
+
+                if ( this.autoExec ) {
+                    this.spawnCommand( 'npm', [ 'run', 'serve' ] );
+                }
+            }
+        }.bind( this ) );
     }
 } );
