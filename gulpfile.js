@@ -1,5 +1,4 @@
 'use strict';
-
 var path = require( 'path' );
 var gulp = require( 'gulp' );
 var eslint = require( 'gulp-eslint' );
@@ -10,6 +9,7 @@ var nsp = require( 'gulp-nsp' );
 var plumber = require( 'gulp-plumber' );
 var coveralls = require( 'gulp-coveralls' );
 var runSequence = require( 'gulp-run-sequence' );
+var babelCompiler = require( 'babel-core/register' );
 
 gulp.task( 'lint', function() {
     return gulp.src( [ './**/*.js', '!./**/_*.js' ] )
@@ -36,7 +36,12 @@ gulp.task( 'pre-test', function() {
 gulp.task( 'test', [ 'pre-test' ], function( cb ) {
     gulp.src( 'test/**/*.js' )
         .pipe( plumber() )
-        .pipe( mocha( { reporter: 'spec' } ) )
+        .pipe( mocha( {
+            reporter: 'spec',
+            compilers: {
+                js: babelCompiler
+            }
+        } ) )
         .on( 'error', function( err ) {
             cb( err );
         } )

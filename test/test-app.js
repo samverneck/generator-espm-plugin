@@ -1,9 +1,8 @@
 'use strict';
-
-let path = require( 'path' );
-let yo = require( 'yeoman-test' );
-let assert = require( 'yeoman-assert' );
-let sinon = require( 'sinon' );
+import path from 'path';
+import yo from 'yeoman-test';
+import assert from 'yeoman-assert';
+import sinon from 'sinon';
 
 describe( 'generator-espm-plugin', () => {
     let appPath = path.join( __dirname, '../generators/app' );
@@ -28,10 +27,10 @@ describe( 'generator-espm-plugin', () => {
                    generator.npmInstall = sinon.spy();
                    sinon.stub( generator, 'spawnCommand', () => {
                        return {
-                          on: function( evt, fn ) {
+                           on: function( evt, fn ) {
                               fn( 0 );
                           }
-                      };
+                       };
                    } );
                } )
               .on( 'end', done );
