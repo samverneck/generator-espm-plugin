@@ -44,6 +44,7 @@
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
     "gulp-run-sequence": "^0.3.2",
+    "sinon": "^1.17.3",
     "yeoman-assert": "^2.1.2",
     "yeoman-test": "^1.1.0"
   }

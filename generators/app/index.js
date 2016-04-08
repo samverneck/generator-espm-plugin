@@ -5,6 +5,10 @@ var chalk = require( 'chalk' );
 var yosay = require( 'yosay' );
 var path = require( 'path' );
 var _ = require( 'underscore.string' );
+var formats = {
+    ES6: 'es6',
+    COMMONJS: 'cjs'
+};
 
 module.exports = generators.Base.extend( {
 
@@ -48,10 +52,10 @@ module.exports = generators.Base.extend( {
             message: 'Qual o "module system" usado pelo plugin?',
             choices: [ {
                 name: 'ES6',
-                value: 'es6'
+                value: formats.ES6
             }, {
                 name: 'CommonJS',
-                value: 'cjs'
+                value: formats.COMMONJS
             } ],
             default: 0
         } ];
