@@ -28,8 +28,8 @@ describe( 'generator-espm-plugin', () => {
                    sinon.stub( generator, 'spawnCommand', () => {
                        return {
                            on: function( evt, fn ) {
-                              fn( 0 );
-                          }
+                               fn( 0 );
+                           }
                        };
                    } );
                } )

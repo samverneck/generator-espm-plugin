@@ -1,11 +1,13 @@
-
-// emula a aplcação ES na palma da mão (espm)
+// emula a aplicação ES na palma da mão (espm)
 
 // jspm packages
+import 'font-awesome';
 import 'jquery';
-import angular from 'angular/angular';
+import angular from 'angular';
 import 'angular-ui-router';
-import 'font-awesome'; //eslint-disable-line no-unused-vars
+import espmRoutesConfig from './espm.routes';
+import EspmController from './espm.controller';
+import pluginModule from '../plugin/index'; //eslint-disable-line no-unused-vars
 
 // só carrega css da aplicação depois de carregar bootstrap
 System.import( 'bootstrap/css/bootstrap.css!' ).then( () => {
@@ -13,21 +15,14 @@ System.import( 'bootstrap/css/bootstrap.css!' ).then( () => {
     System.import( 'lib/espmEmulator/css/espm.css!' );
 } );
 
-// espm emulator
-import espmRoutesConfig from './espm.routes';
-import EspmController from './espm.controller';
-
-// plugin detran
-import pluginModule from '../plugin/index';
-
 const dependencies = [
     pluginModule.name,
     'ui.router'
 ];
-
 let espm = angular.module( 'espm', dependencies )
-                 .config( espmRoutesConfig )                     // emula rota base da aplicação
-                 .controller( 'espmController', EspmController ); // emula controller base da aplicação
+                  .config( espmRoutesConfig )                     // emula rota base da aplicação
+                  .controller( 'espmController', EspmController ); // emula controller base da
+                                                                   // aplicação
 
 // bootstrap espm app
 angular.element( document ).ready( function() {
@@ -37,4 +32,3 @@ angular.element( document ).ready( function() {
 } );
 
 export default espm;
-

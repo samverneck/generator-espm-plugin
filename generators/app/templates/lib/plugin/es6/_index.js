@@ -1,6 +1,6 @@
-import angular from 'angular';
 import 'angular-ui-router';
 import './<%= pluginName %>.css!';
+import angular from 'angular';
 import <%= capitalPluginName %>Controller from './<%= pluginName %>.controller';
 import <%= pluginName %>Routes from './<%= pluginName %>.routes';
 

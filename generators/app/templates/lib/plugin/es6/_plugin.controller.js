@@ -1,13 +1,25 @@
+/**
+ * Agenda controller
+ * @param {Object} $log - angular log service.
+ * @constructor
+ * @returns {void}
+ */
 class <%= capitalPluginName %>Controller {
 
-    constructor() {
+    constructor( $log ) {
+        this.logger = $log;
         this.activate();
     }
 
-    activate() {
-         console.log( '<%= capitalPluginName %> Controller ativado' );
+    /**
+     * Ativa o controller
+     *
+     * @returns {void}
+     */
+    activate(){
+        this.logger.log( '<%= capitalPluginName %> Controller ativado' );
     }
 }
 
-export default [ <%= capitalPluginName %>Controller ];
+export default [ '$log', <%= capitalPluginName %>Controller ];
 

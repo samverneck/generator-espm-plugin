@@ -1,9 +1,13 @@
-﻿
-var template = require('./<%= pluginName %>.tpl.html!text');
+﻿var template = require( './<%= pluginName %>.tpl.html!text' );
 
-function <%= pluginName %>Routes($stateProvider) {
+/**
+ * Rotas para o plugin
+ * @param {Object} $stateProvider - ui-route $stateProvider.
+ * @returns {void}
+ */
+function <%=pluginName%>Routes( $stateProvider ){
     $stateProvider
-        .state('espm.<%= pluginName %>-principal', {
+        .state( 'espm.<%= pluginName %>-principal', {
             url: '<%= pluginName %>',
             data: { title: '<%= capitalPluginName %>' },
             views: {
@@ -12,10 +16,10 @@ function <%= pluginName %>Routes($stateProvider) {
                     template: template
                 }
             }
-        });
+        } );
 }
 
 module.exports = [
-    '$stateProvider',
-    <%= pluginName %>Routes
+    '$stateProvider', <%=pluginName%>Routes
 ];
+

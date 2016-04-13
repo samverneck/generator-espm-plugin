@@ -1,5 +1,10 @@
 ﻿import template from './<%= pluginName %>.tpl.html!text';
 
+/**
+ * Rotas para o plugin
+ * @param {Object} $stateProvider - ui-route $stateProvider.
+ * @returns {void}
+ */
 function <%= pluginName %>Routes( $stateProvider ) {
     $stateProvider
         .state( 'espm.<%= pluginName %>-principal', {
@@ -15,6 +20,5 @@ function <%= pluginName %>Routes( $stateProvider ) {
 }
 
 export default[
-    '$stateProvider',
-    <%= pluginName %>Routes
+    '$stateProvider', <%= pluginName %>Routes
 ];

@@ -1,15 +1,16 @@
- class EspmController {
-     constructor() {
-         'ngInject';
-         this.activate();
-     }
+class EspmController {
 
-     activate() {
-         this.userName = 'Daniel Hoisel';
-         this.appName = 'ES na Palma da Mão';
+    constructor( $log ) {
+        this.log = $log;
+        this.activate();
+    }
 
-         console.info( 'Aplicação inicializada' );
-     }
+    activate() {
+        this.userName = 'Daniel Hoisel';
+        this.appName = 'ES na Palma da Mão';
+
+        this.log.info( 'Aplicação inicializada' );
+    }
 }
 
- export default [ EspmController ];
+export default [ '$log', EspmController ];
