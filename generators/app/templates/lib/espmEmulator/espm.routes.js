@@ -1,7 +1,4 @@
-
 function routesConfig( $stateProvider, $urlRouterProvider ) {
-    'ngInject';
-
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise( '/<%= pluginName %>' );
 
