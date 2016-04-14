@@ -3,7 +3,13 @@
   "repository": "http://github.com/<%= user %>/<%= repo %>",
   "version": "0.1.0",
   "scripts": {
-    "serve": "jspm-server --open=lib/espmEmulator/index.html"
+    "start": "jspm-server --open=lib/espmEmulator/index.html",
+    "lint": "eslint lib/plugin",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "karma start karma.conf.js",
+    "test:dev": "npm run test -- --no-single-run",
+    "test:web": "npm run test -- --browsers Chrome",
+    "view-coverage": "serveur -R -L -b -o coverage/report-html -p 3001"
   },
   "jspm": {
     "format": "<%= format %>",
@@ -15,6 +21,7 @@
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.5.0",
       "angular-ui-router": "github:angular-ui/ui-router@^0.2.18",
+      "angular-mocks": "github:angular/bower-angular-mocks@^1.5.3",
       "bootstrap": "github:twbs/bootstrap@^3.3.6",
       "font-awesome": "npm:font-awesome@^4.5.0",
       "jquery": "npm:jquery@^2.2.1",
@@ -31,23 +38,31 @@
   },
   "devDependencies": {
     "chai": "^1.10.0",
-    "gulp": "^3.8.10",
+    "eslint": "^2.7.0",
+    "eslint-config-idiomatic": "^2.0.0",
+    "eslint-config-prodest": "^1.0.12",
+    "eslint-config-prodest-angular": "^1.0.2",
+    "eslint-plugin-angular": "^1.0.0",
+    "gulp": "^3.9.1",
     "gulp-bump": "^0.1.11",
     "gulp-shell": "^0.2.11",
     "gulp-watch": "^3.0.0",
+    "istanbul": "^0.4.3",
+    "jspm": "^0.16.33",
+    "karma": "^0.13.22",
     "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^0.1.7",
-    "karma-jspm": "^1.1.1",
-    "karma-mocha": "^0.1.10",
-    "karma-mocha-reporter": "^0.2.2",
-    "karma-sauce-launcher": "^0.2.10",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-coverage": "^0.5.5",
+    "karma-coveralls": "^1.1.2",
+    "karma-jspm": "^2.1.0",
+    "karma-mocha": "^0.2.2",
+    "karma-mocha-reporter": "^1.1.6",
+    "karma-phantomjs-launcher": "^1.0.0",
     "karma-sinon": "^1.0.4",
     "mocha": "^2.1.0",
+    "phantomjs-prebuilt": "^2.1.7",
     "semver": "^4.2.0",
-    "sinon": "^1.12.2",
-    "eslint-plugin-angular": "^1.0.0",
-    "eslint-config-idiomatic": "^2.0.0",
-    "eslint-config-prodest": "^1.0.12",
-    "eslint-config-prodest-angular": "^1.0.2"
+    "serveur": "^2.1.0",
+    "sinon": "^1.17.3"
   }
 }

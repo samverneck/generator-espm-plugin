@@ -25,6 +25,8 @@ module.exports = generators.Base.extend( {
         this.argument( 'pluginName', { type: String, required: false } );
         this.pluginName = this.pluginName || path.basename( process.cwd() );
         this.pluginName = _.camelize( _.slugify( _.humanize( this.pluginName ) ) );
+
+        this._notify( 'Nome do plugin: ' + this.pluginName );
     },
 
     prompting: function() {
@@ -57,24 +59,44 @@ module.exports = generators.Base.extend( {
                 value: formats.COMMONJS
             } ],
             default: 0
+        },
+        {
+            type: 'input',
+            name: 'createUnitTests',
+            message: 'Deseja criar unit tests? (Yn)'
         } ];
 
         this.prompt( prompts, function( answers ) {
             this.githubUserName = answers.githubUserName;
             this.autoExec = !answers.autoExec || ( answers.autoExec === 'Y' || answers.autoExec === 'y' );
+            this.createUnitTests = !answers.createUnitTests || ( answers.createUnitTests === 'Y' || answers.createUnitTests === 'y' );
             this.format = answers.format;
             done();
         }.bind( this ) );
     },
 
+    // resolve o caminho para o path do formato escolhido para o plugin
+    _resolve: function( file ) {
+        return 'lib/plugin/' + this.format + '/' + file;
+    },
+
+    _context: function() {
+        return {
+            repo: this.pluginName,
+            user: this.githubUserName,
+            unitTests: this.createUnitTests,
+            pluginName: this.pluginName,
+            capitalPluginName: _.capitalize( this.pluginName ),
+            format: this.format
+        };
+    },
+
     writing: {
+        notify: function() {
+            this._notify( 'Criando código fonte do plugin: ' + this.pluginName );
+        },
 
         espmEmulator: function() {
-            var context = {
-                pluginName: this.pluginName,
-                capitalPluginName: _.capitalize( this.pluginName )
-            };
-
             this.fs.copy(
                   this.templatePath( 'lib/espmEmulator/css' ),
                   this.destinationPath( 'lib/espmEmulator/css' ) );
@@ -90,7 +112,7 @@ module.exports = generators.Base.extend( {
             this.fs.copyTpl(
                   this.templatePath( 'lib/espmEmulator/espm.routes.js' ),
                   this.destinationPath( 'lib/espmEmulator/espm.routes.js' ),
-                  context );
+                  this._context() );
 
             this.fs.copy(
                   this.templatePath( 'lib/espmEmulator/espm.controller.js' ),
@@ -99,48 +121,29 @@ module.exports = generators.Base.extend( {
             this.fs.copyTpl(
                  this.templatePath( 'lib/espmEmulator/_index.html' ),
                  this.destinationPath( 'lib/espmEmulator/index.html' ),
-                 context );
+                 this._context() );
         },
 
-
-
         pluginSrc: function() {
-
-            var context = {
-                pluginName: this.pluginName,
-                capitalPluginName: _.capitalize( this.pluginName ),
-                format: this.format
-            };
-
-            // resolve o caminho para o path do formato escollhido para o plugin
-            var _resolve = function( file ) {
-                return 'lib/plugin/' + this.format + '/' + file;
-            }.bind( this );
-
             this.fs.copyTpl(
-                this.templatePath( _resolve( '_index.js' ) ),
+                this.templatePath( this._resolve( '_index.js' ) ),
                 this.destinationPath( 'lib/plugin/index.js' ),
-                context );
+                this._context() );
 
             this.fs.copyTpl(
-                this.templatePath( _resolve( '_plugin.controller.js' ) ),
+                this.templatePath( this._resolve( '_plugin.controller.js' ) ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.controller.js' ),
-                context );
+                this._context() );
 
             this.fs.copyTpl(
-                this.templatePath( _resolve( '_plugin.controller.specs.js' ) ),
-                this.destinationPath( 'lib/plugin/' + this.pluginName + '.controller.specs.js' ),
-                context );
-
-            this.fs.copyTpl(
-                this.templatePath( _resolve( '_plugin.routes.js' ) ),
+                this.templatePath( this._resolve( '_plugin.routes.js' ) ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.routes.js' ),
-                context );
+                this._context() );
 
             this.fs.copyTpl(
                 this.templatePath( 'lib/plugin/plugin.tpl.html' ),
                 this.destinationPath( 'lib/plugin/' + this.pluginName + '.tpl.html' ),
-                context );
+                this._context() );
 
             this.fs.copy(
                 this.templatePath( 'lib/plugin/plugin.css' ),
@@ -164,47 +167,43 @@ module.exports = generators.Base.extend( {
                 this.templatePath( 'config.js' ),
                 this.destinationPath( 'config.js' ) );
 
-
             this.fs.copy(
               this.templatePath( 'system.yuml.js' ),
               this.destinationPath( 'system.yuml.js' ) );
         },
 
         tests: function() {
-            this.fs.copy(
-                this.templatePath( 'test' ),
-                this.destinationPath( 'test' ) );
+            if ( this.createUnitTests ) {
+                this.fs.copyTpl(
+                    this.templatePath( this._resolve( '_plugin.controller.specs.js' ) ),
+                    this.destinationPath( 'lib/plugin/' + this.pluginName + '.controller.specs.js' ),
+                    this._context() );
+
+                this.fs.copy(
+                    this.templatePath( 'karma.conf.js' ),
+                    this.destinationPath( 'karma.conf.js' ) );
+            }
         },
 
         gulp: function() {
             this.fs.copyTpl(
                 this.templatePath( 'gulpfile.js' ),
                 this.destinationPath( 'gulpfile.js' ),
-                {
-                    repo: this.pluginName,
-                    user: this.githubUserName
-                } );
+                this._context() );
         },
 
         readme: function() {
             this.fs.copyTpl(
                 this.templatePath( 'README.md' ),
                 this.destinationPath( 'README.md' ),
-                {
-                    repo: this.pluginName,
-                    user: this.githubUserName
-                } );
+                this._context() );
         },
 
         packageJson: function() {
             this.fs.copyTpl(
-                this.templatePath( 'package.json' ),
+                this.templatePath( '_package.json' ),
                 this.destinationPath( 'package.json' ),
-                {
-                    repo: this.pluginName,
-                    user: this.githubUserName,
-                    format: this.format
-                } );
+                this._context() );
         }
     },
 
@@ -212,6 +211,8 @@ module.exports = generators.Base.extend( {
         if ( this.options[ 'skip-install' ] ) {
             return;
         }
+
+        this._notify( 'executando npm install:' );
 
         this.npmInstall();
     },
@@ -223,16 +224,25 @@ module.exports = generators.Base.extend( {
             return;
         }
 
+        this._notify( 'executando jspm install:' );
+
         install = this.spawnCommand( 'jspm', [ 'install', '-y' ] );
 
         install.on( 'close', function( code ) {
             if ( code === 0 ) {
-                this.log( 'jspm install terminou com sucesso!' );
+                this._notify( 'jspm install terminou com sucesso!' );
 
                 if ( this.autoExec ) {
-                    this.spawnCommand( 'npm', [ 'run', 'serve' ] );
+
+                    this._notify( 'executando plugin:' );
+
+                    this.spawnCommand( 'npm', [ 'start' ] );
                 }
             }
         }.bind( this ) );
+    },
+
+    _notify: function( msg ) {
+        this.log( chalk.yellow( msg ) );
     }
 } );

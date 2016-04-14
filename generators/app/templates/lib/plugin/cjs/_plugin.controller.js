@@ -7,8 +7,7 @@
 function <%= capitalPluginName %>Controller( $log ) {
     var vm = this;
     vm.activate = activate;
-
-    vm.activate();
+    vm.nomePlugin = '<%= pluginName %>';
 
     ////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +17,7 @@ function <%= capitalPluginName %>Controller( $log ) {
      * @returns {void}
      */
     function activate() {
-        $log.log( '<%= capitalPluginName %> Controller ativado' );
+        $log.log( vm.nomePlugin + ' Controller ativado' );
     }
 }
 

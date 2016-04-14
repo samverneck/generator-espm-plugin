@@ -5,7 +5,7 @@
  * @param {Object} $stateProvider - ui-route $stateProvider.
  * @returns {void}
  */
-function <%=pluginName%>Routes( $stateProvider ){
+function <%=pluginName%>Routes( $stateProvider ) {
     $stateProvider
         .state( 'espm.<%= pluginName %>-principal', {
             url: '<%= pluginName %>',

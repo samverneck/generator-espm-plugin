@@ -1,81 +1,60 @@
-var pkg = require( './package.json' );
-var capabilities = require( './sauce_labs_capabilities.js' ).capabilities;
+var browsers = [ 'PhantomJS' ]; // para builds locais
+var coverage_reporters = [ { type: 'text' } ];
+var reporters = [ 'mocha', 'coverage' ];
+
+if ( process.env.TRAVIS ) {
+
+    console.log( 'Executando no Travis: enviando coveralls' );
+
+    coverage_reporters.push( {
+        type: 'lcov',
+        subdir: 'report-lcov'
+    } );
+    reporters.push( 'coveralls' );
+} else {
+
+    console.log( 'Executando localmente: não enviando coveralls' );
+
+    coverage_reporters.push( {
+        type: 'html',
+        subdir: 'report-html'
+    } );
+}
 
 module.exports = function( config ) {
-    var configuration = {
+    config.set( {
 
-        // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
-
-
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: [ 'jspm', 'mocha', 'chai' ],
+        frameworks: [ 'jspm', 'mocha', 'chai', 'sinon' ],
 
         jspm: {
-            // Edit this to your needs
-            loadFiles: [ 'test/**/*.spec.js' ],
-            serveFiles: [ 'lib/**/*.js' ]
+            loadFiles: [
+                'lib/plugin/**/*.specs.js', 'lib/plugin/index.js'
+            ],
+            serveFiles: [
+                'lib/plugin/**/*.css', 'lib/plugin/**/*.html', 'lib/plugin**/!(*specs).js'
+            ]
         },
 
-        // list of files / patterns to load in the browser
-        files: [
-        ],
-
-
-        // list of files to exclude
-        exclude: [
-        ],
-
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
+            // - Arquivos fontes para os quais queremos gerar coverage
+            // - Não inclua arquivos de testes ou bibliotecas
+            // - Esses arquivos serão instrumentados pelo Istanbul
+            'lib/plugin/**/!(*specs).js': [ 'coverage' ]
         },
 
+        coverageReporter: {
+            dir: 'coverage/',
+            reporters: coverage_reporters
+        },
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: [ 'mocha' ],
+        proxies: {
+            '/node_modules': '/base/node_modules',
+            '/jspm_packages/': '/base/jspm_packages/',
+            '/lib/': '/base/lib/'
+        },
 
-
-        // web server port
-        port: 9876,
-
-
-        // enable / disable colors in the output (reporters and logs)
-        colors: true,
-
-        browserDisconnectTimeout: 10 * 1000, // 10s
-        browserDisconnectTolerance: 2,
-        browserNoActivityTimeout: 2 * 60 * 1000, // 2m
-        captureTimeout: 0,
-
-        // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
-
-
-        // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
-
-
-        // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: [ 'Chrome' ],
-
-        // Continuous Integration mode
-        // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false
-    };
-
-    if ( process.env.TRAVIS ) {
-        configuration.customLaunchers = capabilities;
-        configuration.browsers = Object.keys( capabilities );
-        configuration.sauceLabs = {
-            testName: pkg.name + ' unit test'
-        };
-    }
-
-    config.set( configuration );
+        reporters: reporters,
+        browsers: browsers,
+        singleRun: true
+    } );
 };

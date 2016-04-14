@@ -4,11 +4,7 @@ var <%= pluginName %>Routes = require( './<%= pluginName %>.routes' );
 require( 'angular-ui-router' );
 require( './<%= pluginName %>.css!' );
 
-var dependencies = [
-    'ui.router'
-];
-
-module.exports = angular.module( 'espm-plugin-<%= pluginName %>', dependencies )
+module.exports = angular.module( 'espm-plugin-<%= pluginName %>', [ 'ui.router' ] )
                         .controller( '<%= pluginName %>Controller', <%= capitalPluginName %>Controller )
                         .config( <%= pluginName %>Routes );
 
