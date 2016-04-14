@@ -60,6 +60,10 @@ Selecione **ES6** para usar a sintaxe e o sistema de módulos do [ECMAScript 201
 Indepentemente do sistema de módulos escolhido, o conjunto *jspm + systemjs* vai fazer a requisição assíncrona dos seus scripts dentro
 do seu plugin à medida que você os requisitar, seja através de `require(xxxx)` (CommonJS) ou `import xxx from 'XXXXX'` (ES6).
 
+**Pergunta:** *Deseja criar unit tests?*
+
+Escolha sim (Y ou y)  para gerar configurações de teste e testes unitários de exemplo para o plugin.
+
 ###4. Instale *packages* a partir dos seguintes registros: jspm, GitHub ou npm:
 Exemplos:
 ```
