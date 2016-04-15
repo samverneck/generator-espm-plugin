@@ -16,6 +16,7 @@ describe( 'generator-espm-plugin', () => {
     formats.forEach( function( format ) {
 
         describe( 'when generating plugin with format === ' + format, () => {
+
             describe( 'and skip-install === false and autoExec === true', () => {
                 beforeEach( done => {
                     yo.run( appPath )
@@ -170,10 +171,28 @@ describe( 'generator-espm-plugin', () => {
                       .on( 'end', done );
                 } );
 
-                it( 'then no generates test files', () => {
+                it( 'then does not generate test files', () => {
                     assert.noFile( [
-                        'karma.conf.js', `lib/plugin/${context.appName}.controller.specs.js`
+                        'karma.conf.js',
+                        `lib/plugin/${context.appName}.controller.specs.js`
                     ] );
+                } );
+
+                it( 'then does not install test packages', () => {
+                    assert.noFileContent( 'package.json', '"istanbul": "^' );
+                    assert.noFileContent( 'package.json', '"karma-coverage": "^' );
+                    assert.noFileContent( 'package.json', '"babel": "^' );
+                    assert.noFileContent( 'package.json', '"babel-preset-es2015": "^' );
+                    assert.noFileContent( 'package.json', '"isparta": "^' );
+                    assert.noFileContent( 'package.json', '"karma-babel-preprocessor": "^' );
+                } );
+
+                it( 'then does not configure npm tests scripts in package.json', () => {
+                    assert.noFileContent( 'package.json', '"test": "karma start karma.conf.js"' );
+                    assert.noFileContent( 'package.json', '"test:dev": "npm run test -- --no-single-run"' );
+                    assert.noFileContent( 'package.json', '"test:web": "npm run test -- --browsers Chrome"' );
+                    assert.noFileContent( 'package.json', '"test:dev:web": "npm run test:web -- --no-single-run"' );
+                    assert.noFileContent( 'package.json', '"serveur -R -L -b -o coverage/report-html -p 3001"' );
                 } );
             } );
 
@@ -182,7 +201,8 @@ describe( 'generator-espm-plugin', () => {
                     yo.run( appPath )
                       .withPrompts( { format: format } )
                       .withOptions( {
-                          'skip-install': true
+                          'skip-install': true,
+                          createUnitTests: 'Y'
                       } )
                       .on( 'end', done );
                 } );
@@ -209,6 +229,50 @@ describe( 'generator-espm-plugin', () => {
                     assert.fileContent( 'package.json', '"eslint-plugin-angular":' );
                     assert.fileContent( 'package.json', '"eslint-config-prodest-angular":' );
                 } );
+
+                it( 'then include default packages to configure unit-tests and coverage', () => {
+                    assert.fileContent( 'package.json', '"istanbul": "' );
+                    assert.fileContent( 'package.json', '"karma-coverage": "' );
+                } );
+
+                it( 'then configure npm tests scripts in package.json', () => {
+                    // single tests in headless browser
+                    assert.fileContent( 'package.json', '"test": "karma start karma.conf.js"' );
+
+                    // tests in watch mode and headless browser
+                    assert.fileContent( 'package.json', '"test:dev": "npm run test -- --no-single-run"' );
+
+                    // single tests in Chrome
+                    assert.fileContent( 'package.json', '"test:web": "npm run test -- --browsers Chrome"' );
+
+                    // tests in watch mode and Chrome
+                    assert.fileContent( 'package.json', '"test:dev:web": "npm run test:web -- --no-single-run"' );
+
+                    // view tests coverage
+                    assert.fileContent( 'package.json', '"serveur -R -L -b -o coverage/report-html -p 3001"' );
+                } );
+
+                if ( format === 'cjs' ) {
+                    it( 'then use normal package versions to be able to configure unit-tests and coverage', () => {
+                        assert.fileContent( 'package.json', '"istanbul": "^0.4.3"' );
+                        assert.fileContent( 'package.json', '"karma-coverage": "^0.5.5"' );
+                    } );
+                }
+
+                if ( format === 'es6' ) {
+                    it( 'then include es6 packages to configure unit-tests and coverage', () => {
+                        assert.fileContent( 'package.json', '"babel": "^' );
+                        assert.fileContent( 'package.json', '"babel-preset-es2015": "^' );
+                        assert.fileContent( 'package.json', '"isparta": "^' );
+                        assert.fileContent( 'package.json', '"karma-babel-preprocessor": "^' );
+                    } );
+
+                    it( 'then use special package versions to be able to configure unit-tests and coverage', () => {
+                        assert.fileContent( 'package.json', '"istanbul": "gotwarlost/istanbul.git#source-map"' );
+                        assert.fileContent( 'package.json', '"karma-coverage": "douglasduteil/karma-coverage#next"' );
+                    } );
+                }
+
             } );
 
             describe( 'and using --pluginName argument', () => {

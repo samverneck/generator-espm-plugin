@@ -180,7 +180,7 @@ module.exports = generators.Base.extend( {
                     this._context() );
 
                 this.fs.copy(
-                    this.templatePath( 'karma.conf.js' ),
+                    this.templatePath( this._resolve( '_karma.conf.js' ) ),
                     this.destinationPath( 'karma.conf.js' ) );
             }
         },

@@ -8,7 +8,7 @@ class <%= capitalPluginName %>Controller {
 
     constructor( $log ) {
         this.logger = $log;
-        this.activate();
+        this.nomePlugin = '<%= pluginName %>';
     }
 
     /**
@@ -16,8 +16,8 @@ class <%= capitalPluginName %>Controller {
      *
      * @returns {void}
      */
-    activate(){
-        this.logger.log( '<%= capitalPluginName %> Controller ativado' );
+    activate() {
+        this.logger.log( this.nomePlugin + ' Controller ativado' );
     }
 }
 

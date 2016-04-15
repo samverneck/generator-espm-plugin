@@ -10,4 +10,7 @@ const dependencies = [
 
 export default angular.module( 'espm-plugin-<%= pluginName %>', dependencies )
                       .controller( '<%= pluginName %>Controller', <%= capitalPluginName %>Controller )
-                      .config( <%= pluginName %>Routes ); 
+                      .config( <%= pluginName %>Routes );
+
+
+
