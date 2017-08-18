@@ -1,7 +1,10 @@
 # generator-espm-plugin
 [![NPM version][npm-image]][npm-url] 
+
 [![Build Status][travis-image]][travis-url] 
+
 [![Dependency Status][daviddm-image]][daviddm-url]
+
 [![Coverage percentage][coveralls-image]][coveralls-url]
 
 > Yeoman generator para gerar plugins para o projeto [ES na palma da mão](https://github.com/prodest/es-na-palma-da-mao) usando [jspm](http://jspm.io/).
