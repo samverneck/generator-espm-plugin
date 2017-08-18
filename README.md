@@ -7,7 +7,7 @@
 > Yeoman generator para gerar plugins para o projeto [ES na palma da mão](https://github.com/prodest/es-na-palma-da-mao) usando [jspm](http://jspm.io/).
 
 
-##1. Instale `generator-espm-plugin` e dependências:
+## 1. Instale `generator-espm-plugin` e dependências:
 
 Primeiro, instale [yeoman](http://yeoman.io), [jspm CLI](http://jspm.io/), [jspm Server](https://github.com/geelen/jspm-server) 
  e então `generator-espm-plugin` usando [npm](https://www.npmjs.com/) (assumindo que você tem [node.js](https://nodejs.org/) e [npm](https://www.npmjs.com/) instalados).
@@ -15,7 +15,7 @@ Primeiro, instale [yeoman](http://yeoman.io), [jspm CLI](http://jspm.io/), [jspm
 npm i -g yo jspm jspm-server generator-espm-plugin
 ```
 
-###2. Crie um novo diretório para o plugin:
+### 2. Crie um novo diretório para o plugin:
 ```bash
 mkdir meu-plugin & cd meu-plugin
 ```
@@ -30,7 +30,7 @@ Essa medida garante que eventuais atualizações ao jspm global não interfiram 
 Use `jspm -v` para ver a versão local instalada.
 
 
-###3. Gere um novo plugin:
+### 3. Gere um novo plugin:
 Execute `generator-espm-plugin` dentro do diretório criado, opcionalmente informando o nome do plugin:
 ```bash
 yo espm-plugin [nome do plugin]
@@ -39,7 +39,7 @@ yo espm-plugin [nome do plugin]
 Se o nome do plugin **não** for informado, o nome do plugin será o nome do diretório onde o *generator* está sendo executado.
 
 
-###4. Responda às perguntas do *generator*
+### 4. Responda às perguntas do *generator*
 O *generator* fará as seguintes perguntas: 
 
 **Pergunta:** *Por favor digite seu username do Github:*
@@ -64,7 +64,7 @@ do seu plugin à medida que você os requisitar, seja através de `require(xxxx)
 
 Escolha sim (Y ou y)  para gerar configurações de teste e testes unitários de exemplo para o plugin.
 
-###4. Instale *packages* a partir dos seguintes registros: jspm, GitHub ou npm:
+### 4. Instale *packages* a partir dos seguintes registros: jspm, GitHub ou npm:
 Exemplos:
 ```
 jspm install jquery
@@ -73,7 +73,7 @@ jspm install github:components/jquery
 jspm install npm:lodash-node
 ```
 
-##Tooling
+## Tooling
 Abaixo seguem breves descrições das ferramentas utilizadas no projeto:
 
 - [yeoman](http://yeoman.io) é uma ferramenta de *scaffolding* de aplicações *web* modernas.
@@ -81,15 +81,15 @@ Abaixo seguem breves descrições das ferramentas utilizadas no projeto:
 - [jspm Server](https://github.com/geelen/jspm-server) é um servidor local que será usado para *rodar* seu plugin em desenvolvimento.
 
 
-##Workflow em desenvolvimento
+## Workflow em desenvolvimento
 
-###JSPM linking (com **watching**)
+### JSPM linking (com **watching**)
 
 ```bash
 gulp link
 ```
 
-###Deploy de uma nova versão para o Github.
+### Deploy de uma nova versão para o Github.
  
 ```bash
 gulp deploy
